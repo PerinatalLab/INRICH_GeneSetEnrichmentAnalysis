@@ -1,0 +1,167 @@
+---
+title: "extract data from INRICH results file"
+author: "Jonas B"
+date: "7 Jun 2015"
+output: pdf_document
+---
+
+These are the results of gene-set enrichment analyses performed using INRICH software. 
+
+GWAS on nonPROM and onlyPROM pregnancies was carried out. Maternal genomes were analysed separately from the fetal genomes. Gene sets were based on 1) full set of GO terms 2) GO terms that are related to OBGYN terms 3) Pregnancy-related genes from PubMed Abstract mining 
+
+```{r,echo=FALSE}
+#library(xtable)
+data_dir = "~/Biostuff/MOBA_GESTAGE_GWAS/INRICH/results/"
+lst= list.files(data_dir,pattern = "moms_non.*PubMed.*ctrl")
+texts = list()
+for (i in 1:length(lst)) {
+#i=4
+        temp_dir = "~/Downloads/"
+        temp_out = "temp_delete_me.txt"
+        cmnd = paste( "grep -n '^[[:punct:]]\\{5,\\}' ",data_dir,lst[i],
+        " | tr -d [[:punct:]] > ",temp_dir,temp_out,sep="")
+        system(cmnd,ignore.stdout = F)
+        rowixs = read.table(paste(temp_dir,temp_out,sep=""),h=F)
+        txt = readLines(paste(data_dir,lst[i],sep=""),n=rowixs[8,1])
+        title_line_ix = grep("project-title",txt)
+        txt = txt[c(title_line_ix,rowixs[4,1]:rowixs[8,1])]
+        txt=txt[which(txt!="")]
+        #txt=substr(txt,1,83)
+        if(length(txt)>40) {
+                from = grep("-----",txt)[2]+1
+                till = grep("-----",txt)[3]-1
+                sub = txt[from:till]
+                ixs = grep("0\\.00",sub)
+                txt_new = c(txt[1:(from-1)],sub[ixs],txt[(till+1):length(txt)])
+                texts[[i]]=txt_new
+        } else {
+        texts[[i]]=txt
+        rm(txt,rowixs,cmnd)
+        }
+}
+```
+
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[1],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[2],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[3],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[4],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[5],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[6],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[7],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[8],quote=F)
+```
+
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[9],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[10],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[11],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[12],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[13],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[14],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[15],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[16],quote=F)
+```
+
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[17],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[18],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[19],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[20],quote=F)
+```
+
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[21],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[22],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[23],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[24],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[25],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[26],quote=F)
+```
+
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[27],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[28],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[29],quote=F)
+```
+
+```{r, echo=FALSE, warning=F, results='markup'}
+print(texts[30],quote=F)
+```
